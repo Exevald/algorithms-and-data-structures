@@ -1,1 +1,0 @@
-C:\AlgorythmAndStructureOfData\lw1\BinarySearch\x64\Debug\BinarySearch.exe
