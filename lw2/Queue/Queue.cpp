@@ -1,6 +1,7 @@
 ﻿#include <iostream>
+#define QUEUE_SIZE 10
+
 using namespace std;
-#define SIZE 5000
 
 class Queue
 {
@@ -11,7 +12,7 @@ class Queue
 	int count;
 
 public:
-	Queue(int size = SIZE);
+	Queue(int size = QUEUE_SIZE);
 	~Queue();
 
 	void Add(int item);
