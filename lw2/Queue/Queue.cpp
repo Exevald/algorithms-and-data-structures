@@ -86,4 +86,6 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 	Queue queue(5);
+
+	return 0;
 }
