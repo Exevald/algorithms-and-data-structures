@@ -10,29 +10,29 @@ struct Node
 struct Queue
 {
 	int size;
-	Node* first;
-	Node* last;
+	Node* head;
+	Node* tail;
 };
 
 void InitQueue(Queue* Q)
 {
-	Q->first = new Node;
-	Q->first->next = NULL;
-	Q->last = Q->first;
+	Q->head = new Node;
+	Q->head->next = NULL;
+	Q->tail = Q->head;
 	Q->size = 0;
 }
 
 int GetHead(Queue* Q)
 {
-	char head = Q->first->next->data;
+	char head = Q->head->next->data;
 	cout << "Верхний элемент очереди: " << head << endl;
 	return head;
 }
 
 int DelHead(Queue* Q)
 {
-	char head = Q->first->next->data;
-	Q->first = Q->first->next;
+	char head = Q->head->next->data;
+	Q->head = Q->head->next;
 	Q->size--;
 	cout << "Верхний элемент очереди: " << head << endl;
 	return head;
@@ -41,16 +41,16 @@ int DelHead(Queue* Q)
 void Add(Queue* Q, char item)
 
 {
-	Q->last->next = new Node;
-	Q->last = Q->last->next;
-	Q->last->data = item;
-	Q->last->next = NULL;
+	Q->tail->next = new Node;
+	Q->tail = Q->tail->next;
+	Q->tail->data = item;
+	Q->tail->next = NULL;
 	Q->size++;
 }
 
 bool IsFull(Queue* Q)
 {
-	return ((Q->first == Q->last) && Q->size != 0);
+	return ((Q->head == Q->tail) && Q->size != 0);
 }
 
 bool IsEmpty(Queue* Q)
@@ -84,7 +84,7 @@ int main()
 			}
 			else
 			{
-				puts("Введите элемент для вставки в очерредь: ");
+				puts("Введите элемент для вставки в очередь: ");
 				cin >> item;
 				Add(&queue, item);
 			}
