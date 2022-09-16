@@ -1,91 +1,122 @@
 ﻿#include <iostream>
-#define QUEUE_SIZE 10
-
 using namespace std;
 
-class Queue
+struct Node
 {
-	int* arr;
-	int capasity;
-	int front;
-	int back;
-	int count;
-
-public:
-	Queue(int size = QUEUE_SIZE);
-	~Queue();
-
-	void Add(int item);
-	int Head();
-	int DelHead();
-	bool IsEmpty();
-	bool IsFull();
+	char data;
+	Node* next;
 };
 
-Queue::Queue(int size)
+struct Queue
 {
-	arr = new int[size];
-	capasity = size;
-	front = 0;
-	back = -1;
-	count = 0;
+	int size;
+	Node* first;
+	Node* last;
+};
+
+void InitQueue(Queue* Q)
+{
+	Q->first = new Node;
+	Q->first->next = NULL;
+	Q->last = Q->first;
+	Q->size = 0;
 }
 
-Queue::~Queue()
+int GetHead(Queue* Q)
 {
-	delete[] arr;
+	char head = Q->first->next->data;
+	cout << "Верхний элемент очереди: " << head << endl;
+	return head;
 }
 
-void Queue::Add(int item)
+int DelHead(Queue* Q)
 {
-	if (IsFull())
-	{
-		puts("Переполнение очереди!");
-		exit(1);
-	}
-	back = (back + 1) % capasity;
-	arr[back] = item;
-	count++;
+	char head = Q->first->next->data;
+	Q->first = Q->first->next;
+	Q->size--;
+	cout << "Верхний элемент очереди: " << head << endl;
+	return head;
 }
 
-int Queue::Head()
-{
-	if (IsEmpty())
-	{
-		puts("Очередь пустая!");
-		exit(1);
-	}
+void Add(Queue* Q, char item)
 
-	return arr[front];
+{
+	Q->last->next = new Node;
+	Q->last = Q->last->next;
+	Q->last->data = item;
+	Q->last->next = NULL;
+	Q->size++;
 }
 
-int Queue::DelHead()
+bool IsFull(Queue* Q)
 {
-	if (IsEmpty())
-	{
-		puts("Очередь пустая!");
-		exit(1);
-	}
-	int key = arr[front];
-	front = (front + 1) % capasity;
-
-	return key;
+	return ((Q->first == Q->last) && Q->size != 0);
 }
 
-bool Queue::IsFull()
+bool IsEmpty(Queue* Q)
 {
-	return (count == capasity);
-}
-
-bool Queue::IsEmpty()
-{
-	return (count == 0);
+	return (Q->size == 0);
 }
 
 int main()
 {
-	setlocale(LC_ALL, "rus");
-	Queue queue(5);
+	setlocale(LC_ALL, "ru");
+	Queue queue;
+	char answer;
+	char item;
+
+	InitQueue(&queue);
+
+	do {
+		puts("Введите 1, чтобы добавить элемент в очередь");
+		puts("Введите 2, чтобы вывести верхний элемент и удалить его из очереди");
+		puts("Введите 3, чтобы вывести верхний элемент без удаления из очереди");
+		puts("Введите 0, чтобы выйти из программы");
+
+		cin >> answer;
+
+		switch (answer)
+		{
+		case '1':
+			if (IsFull(&queue))
+			{
+				puts("Очередь полная!");
+			}
+			else
+			{
+				puts("Введите элемент для вставки в очерредь: ");
+				cin >> item;
+				Add(&queue, item);
+			}
+			break;
+		case '2':
+			if (IsEmpty(&queue))
+			{
+				puts("Очередь пустая!");
+			}
+			else 
+			{
+				DelHead(&queue);
+				break;
+			}
+		case '3':
+			if (IsEmpty(&queue))
+			{
+				puts("Очередь пустая!");
+			}
+			else
+			{
+				GetHead(&queue);
+				break;
+			}
+		case '0':
+			puts("Выход");
+			break;
+		default:
+			puts("Команда не определена!");
+			break;
+		}
+	} while (answer != '0');
 
 	return 0;
 }
