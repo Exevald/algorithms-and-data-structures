@@ -1,24 +1,23 @@
 ﻿#include <iostream>
 #include "QueueModuleInterface.h"
 
-#define QueueType char
-
 using namespace std;
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
 
-	Queue queue;
-	QueueType answer;
+	Queue* queue;
+	char answer;
 	QueueType item;
 
-	InitQueue(&queue);
+	queue = NULL;
 
 	do {
 		puts("Введите 1, чтобы добавить элемент в очередь");
 		puts("Введите 2, чтобы вывести верхний элемент и удалить его из очереди");
 		puts("Введите 3, чтобы вывести верхний элемент без удаления из очереди");
+		puts("Введите 4, чтобы вывести всю очередь");
 		puts("Введите 0, чтобы выйти из программы");
 
 		cin >> answer;
@@ -28,20 +27,24 @@ int main()
 		case '1':
 			puts("Введите элемент для вставки в очередь: ");
 			cin >> item;
-			Add(&queue, item);
+			Add(queue, item);
 			break;
 		case '2':
-			if (IsEmpty(&queue))
+			if (IsEmpty(queue))
 			{
 				puts("Очередь пустая!");
 			}
 			else
 			{
-				DelHead(&queue);
+				DelHead(queue);
 			}
 			break;
 		case '3':
-			GetHead(&queue);
+			GetHead(queue);
+			break;
+		case '4':
+			PrintQueue(queue);
+			cout << endl;
 			break;
 		case '0':
 			puts("Выход");

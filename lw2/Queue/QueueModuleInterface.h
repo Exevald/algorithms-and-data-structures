@@ -1,27 +1,20 @@
 #include <iostream>
-#define QueueType char
+#define QueueType int
 
 using namespace std;
 
-struct Node
-{
-	QueueType data;
-	Node* next;
-};
-
 struct Queue
 {
-	int size;
-	Node* head;
-	Node* tail;
+	QueueType item;
+	Queue* next;
 };
-
-void InitQueue(Queue* Q);
 
 void GetHead(Queue* Q);
 
-void DelHead(Queue* Q);
+void DelHead(Queue*& Q);
 
-void Add(Queue* Q, char item);
+void Add(Queue*& Q, QueueType item);
 
 bool IsEmpty(Queue* Q);
+
+void PrintQueue(Queue* Q);

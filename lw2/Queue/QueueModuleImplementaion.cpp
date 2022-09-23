@@ -1,38 +1,51 @@
-#include "QueueModuleInterface.h"
+ï»¿#include "QueueModuleInterface.h"
 
-void InitQueue(Queue* Q)
+bool IsEmpty(Queue* Q)
 {
-	Q->head = new Node;
-	Q->head->next = NULL;
-	Q->tail = Q->head;
-	Q->size = 0;
+	if (Q == NULL)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void GetHead(Queue* Q)
 {
-	QueueType head = Q->head->next->data;
-	cout << "Âåðõíèé ýëåìåíò î÷åðåäè: " << head << endl;
+	cout << "Ð’ÐµÑ€Ñ…Ð½Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸: " << Q->item << endl;
 }
 
-void DelHead(Queue* Q)
+void Add(Queue*& Q, QueueType item)
 {
-	char head = Q->head->next->data;
-	Q->head = Q->head->next;
-	Q->size--;
-	cout << "Âåðõíèé ýëåìåíò î÷åðåäè: " << head << endl;
+	if (Q == NULL)
+	{
+		Q = new Queue;
+		Q->item = item;
+		Q->next = NULL;
+	}
+	else
+	{
+		Add(Q->next, item);
+	}
 }
 
-void Add(Queue* Q, char item)
-
+void DelHead(Queue*& Q)
 {
-	Q->tail->next = new Node;
-	Q->tail = Q->tail->next;
-	Q->tail->data = item;
-	Q->tail->next = NULL;
-	Q->size++;
+	struct Queue* temp = new Queue;
+
+	cout << "Ð’ÐµÑ€Ñ…Ð½Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸: " << Q->item << endl;
+	temp = Q->next;
+	delete(Q);
+	Q = temp;
+	delete(temp);
 }
 
-bool IsEmpty(Queue* Q)
-{
-	return (Q->size == 0);
+void PrintQueue(Queue* Q) {
+	if (Q != NULL)
+	{
+		cout << Q->item << " ";
+		PrintQueue(Q->next);
+	}
 }
