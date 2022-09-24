@@ -7,11 +7,11 @@ int main()
 {
 	setlocale(LC_ALL, "ru");
 
-	Queue* queue;
+	Queue queue;
 	char answer;
 	QueueType item;
 
-	queue = NULL;
+	InitQueue(&queue);
 
 	do {
 		puts("Введите 1, чтобы добавить элемент в очередь");
@@ -27,23 +27,22 @@ int main()
 		case '1':
 			puts("Введите элемент для вставки в очередь: ");
 			cin >> item;
-			Add(queue, item);
+			Add(&queue, item);
 			break;
 		case '2':
-			if (IsEmpty(queue))
+			if (IsEmpty(&queue))
 			{
 				puts("Очередь пустая!");
 			}
 			else
 			{
-				DelHead(queue);
+				DelHead(&queue);
 			}
 			break;
 		case '3':
-			GetHead(queue);
+			GetHead(&queue);
 			break;
 		case '4':
-			PrintQueue(queue);
 			cout << endl;
 			break;
 		case '0':

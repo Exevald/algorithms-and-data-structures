@@ -1,51 +1,39 @@
 ﻿#include "QueueModuleInterface.h"
 
+void InitQueue(Queue* Q)
+{
+	Q->head = new Node();
+	Q->head->next = NULL;
+	Q->tail = Q->head;
+}
+
 bool IsEmpty(Queue* Q)
 {
 	if (Q == NULL)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		return 1;
 	}
 }
 
 void GetHead(Queue* Q)
 {
-	cout << "Верхний элемент очереди: " << Q->item << endl;
+	cout << "Верхний элемент очереди: " << Q->head->next->item << endl;
 }
 
-void Add(Queue*& Q, QueueType item)
+void Add(Queue* Q, QueueType item)
 {
-	if (Q == NULL)
-	{
-		Q = new Queue;
-		Q->item = item;
-		Q->next = NULL;
-	}
-	else
-	{
-		Add(Q->next, item);
-	}
+	Q->tail->next = new Node();
+	Q->tail = Q->tail->next;
+	Q->tail->item = item;
+	Q->tail->next = NULL;
 }
 
-void DelHead(Queue*& Q)
+void DelHead(Queue* Q)
 {
-	struct Queue* temp = new Queue;
-
-	cout << "Верхний элемент очереди: " << Q->item << endl;
-	temp = Q->next;
-	delete(Q);
-	Q = temp;
+	Node* temp;
+	cout << "Верхний элемент очереди: " << Q->head->next->item << endl;
+	temp = Q->head->next;
+	delete(Q->head);
+	Q->head = temp;
 	delete(temp);
-}
-
-void PrintQueue(Queue* Q) {
-	if (Q != NULL)
-	{
-		cout << Q->item << " ";
-		PrintQueue(Q->next);
-	}
 }
