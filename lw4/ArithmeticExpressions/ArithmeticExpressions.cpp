@@ -6,14 +6,9 @@
 
 using namespace std;
 
-int main()
+int ArithmExpr(string inf)
 {
-	int i = 0, j = 0;
-	StackType ch;
-
-	ifstream inputFile("input.txt");
 	stack <StackType> tempStack;
-
 	map<StackType, int> PriorityDict =
 	{
 		{'(', 0},
@@ -21,11 +16,11 @@ int main()
 		{'-', 1},
 		{'*', 2},
 		{'/', 2},
-		{'^', 3},
 	};
 	map<StackType, int> ::iterator tempIterator;
+	ifstream inputFile(inf);
 
-	setlocale(LC_ALL, "rus");
+	StackType ch;
 
 	if (!inputFile.is_open())
 	{
@@ -77,6 +72,14 @@ int main()
 		cout << tempStack.top();
 		tempStack.pop();
 	}
+	cout << endl;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "rus");
+
+	ArithmExpr("input.txt");
 
 	return 0;
 }
