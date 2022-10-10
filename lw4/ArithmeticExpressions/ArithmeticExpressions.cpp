@@ -73,6 +73,8 @@ int ArithmExpr(string inf)
 		tempStack.pop();
 	}
 	cout << endl;
+
+	inputFile.close();
 }
 
 int main()
