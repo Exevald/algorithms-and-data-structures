@@ -141,21 +141,21 @@ void DFS(int amountVert, GraphType(&graphMatrix)[MAX_VERTEX][MAX_VERTEX])
 		visited[i] = false;
 	}
 	i = 1;
-	if (!visited[i])
+	if (visited[i] == false)
 	{
 		tempStack.push(i);
 		while (!tempStack.empty())
 		{
 			currentVert = tempStack.top();
 			tempStack.pop();
-			if (!visited[currentVert])
+			if (visited[currentVert] == false)
 			{
 				visited[currentVert] = true;
 				std::cout << currentVert << " ";
 			}
 			for (i = 1; i <= amountVert; i++)
 			{
-				if (graphMatrix[currentVert][i] > 0 && !visited[i])
+				if (graphMatrix[currentVert][i] > 0 && visited[i] == false)
 				{
 					tempStack.push(i);
 				}
