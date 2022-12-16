@@ -198,56 +198,48 @@ void BFS(int amountVert, GraphType(&graphMatrix)[MAX_VERTEX][MAX_VERTEX])
 	}
 }
 
-bool isFilled(int list[MAX_VERTEX])
-{
-	for (int i = 1; i <= MAX_VERTEX; i++)
-	{
-		if (list[i] == 0)
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
 void FindComponents(int amountVert, GraphType(&graphMatrix)[MAX_VERTEX][MAX_VERTEX])
 {
-	int compList[MAX_VERTEX];
-	int i, j, currentvert, amountComponents = 1;
-	std::stack <int> tempStack;
+	int visited[MAX_VERTEX];
+	std::stack<int> tempStack;
+	int i, j, currentVert, groupNumber;
 
 	for (i = 1; i <= amountVert; i++)
 	{
-		compList[i] = 0;
+		visited[i] = 0;
 	}
-	for (compList, j = 1, amountComponents; compList[j] == 0, !isFilled(compList); amountComponents++, j++)
+	groupNumber = 1;
+	for (i = 1; i <= amountVert; i++)
 	{
-		tempStack.push(j);
-		while (!tempStack.empty())
+		if (visited[i] == 0)
 		{
-			currentvert = tempStack.top();
-			tempStack.pop();
-			if (compList[currentvert] == 0)
+			tempStack.push(i);
+			while (!tempStack.empty())
 			{
-				compList[currentvert] = amountComponents;
-			}
-			for (i = 1; i <= amountVert; i++)
-			{
-				if (graphMatrix[currentvert][i] > 0 && compList[currentvert] != 0)
+				currentVert = tempStack.top();
+				tempStack.pop();
+				if (visited[currentVert] == 0)
 				{
-					tempStack.push(i);
+					visited[currentVert] = groupNumber;
+				}
+				for (j = 1; j <= amountVert; j++)
+				{
+					if ((graphMatrix[currentVert][j] > 0) && (visited[j] == 0))
+					{
+						tempStack.push(j);
+					}
 				}
 			}
+			groupNumber++;
 		}
 	}
 	for (i = 1; i <= amountVert; i++)
 	{
-		std::cout << i;
+		std::cout << i << ' ';
 	}
 	std::cout << std::endl;
 	for (i = 1; i <= amountVert; i++)
 	{
-		std::cout << compList[i];
+		std::cout << visited[i] << ' ';
 	}
-	std::cout << std::endl;
 }
