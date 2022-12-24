@@ -283,7 +283,6 @@ void TopologicSort(int amountVert, GraphType(&graphMatrix)[MAX_VERTEX][MAX_VERTE
 	{
 		if (graphMatrix[currentVert][i] > 0)
 		{
-			std::cout << i;
 			hasCycle = TopologicRecurse(amountVert, graphMatrix, tin, tout, time, i);
 			if (hasCycle)
 			{
