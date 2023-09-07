@@ -239,4 +239,5 @@ samples/01-basics/string-joiner/out.txt
 
 # CLION files
 
+cmake-build-debug/
 *.idea
