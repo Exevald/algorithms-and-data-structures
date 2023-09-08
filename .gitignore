@@ -241,3 +241,6 @@ samples/01-basics/string-joiner/out.txt
 
 cmake-build-debug/
 *.idea
+
+# BASH file
+*.out

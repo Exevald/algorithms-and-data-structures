@@ -13,7 +13,20 @@
 #include <iostream>
 #include <fstream>
 #include <optional>
+#include <string>
 
-int main() {
+struct Args {
+    std::string inputFileName;
+    std::string outputFileName;
+};
+
+std::optional<Args> ParseArguments(int argc, char* argv[])
+{
+
+}
+
+int main(int argc, char* argv[]) {
+    system("chcp 65001");
+    std::cout << "Hello alabama!";
     return 0;
 }
