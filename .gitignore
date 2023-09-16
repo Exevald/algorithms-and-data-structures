@@ -244,3 +244,7 @@ cmake-build-debug/
 
 # BASH file
 *.out
+*.exe
+
+#TEST FILES
+test_output.txt
