@@ -26,7 +26,7 @@ std::optional<Args> ParseArguments(int argc, char *argv[])
     if (argc != 3)
     {
         std::cout << "Invalid argumant count" << std::endl
-                    << "Usage: task_26.exe <inputFile> <outputFile>" << std::endl;
+                  << "Usage: task_26.exe <inputFile> <outputFile>" << std::endl;
         return std::nullopt;
     }
     Args args;
@@ -36,7 +36,29 @@ std::optional<Args> ParseArguments(int argc, char *argv[])
     return args;
 }
 
-int CopyFileWithReplacement(std::string& inputFileName, std::string& outputFileName)
+void CopyStringWithReplacement(std::ifstream &input, std::ofstream &output)
+{
+    std::string line, replacedLine;
+    size_t itemPosition;
+
+    while (std::getline(input, line))
+    {
+    }
+    output << line << std::endl;
+    itemPosition = line.find("Кто", 0, 3);
+    if (itemPosition == 0)
+    {
+        if (line[-1] == '?')
+        {
+            output << "Конь в пальто!" << std::endl;
+        } else
+        {
+            output << "Спасибо за информацию" << std::endl;
+        }
+    }
+}
+
+int CopyFileWithReplacement(std::string &inputFileName, std::string &outputFileName)
 {
     std::ifstream inputFile;
     inputFile.open(inputFileName);
@@ -55,7 +77,8 @@ int CopyFileWithReplacement(std::string& inputFileName, std::string& outputFileN
         std::cout << "Failed to open " << outputFileName << " for writing" << std::endl;
         return EXIT_FAILURE;
     }
-    outputFile << "Hello alabama!";
+
+    CopyStringWithReplacement(inputFile, outputFile);
 
     return EXIT_SUCCESS;
 }
