@@ -248,3 +248,7 @@ cmake-build-debug/
 
 #TEST FILES
 test_output.txt
+
+#VSCODE files
+.DS_Store
+.vscode/
