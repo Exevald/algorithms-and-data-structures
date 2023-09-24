@@ -14,6 +14,7 @@
 #include <fstream>
 #include <optional>
 #include <string>
+#include <vector>
 
 struct Args
 {
@@ -36,30 +37,67 @@ std::optional<Args> ParseArguments(int argc, char *argv[])
     return args;
 }
 
-void CopyStringWithReplacement(std::ifstream &input, std::ofstream &output)
+std::vector<std::string> GetLastString(std::ifstream &input)
 {
-    std::string line, replacedLine;
-    size_t itemPosition;
+    std::string word;
+    std::vector<std::string> wordsList;
 
-    while (std::getline(input, line))
+    while (input >> word)
     {
+        wordsList.push_back(word);
+        if (word[word.size() - 1] == '.' || word[word.size() - 1] == '!' || (word[word.size() - 1] == '?' && !input.eof()))
+        {
+            wordsList.clear();
+        }
     }
-    output << line << std::endl;
-    itemPosition = line.find("Кто", 0, 3);
-    if (itemPosition == 0)
+    return wordsList;
+}
+
+void CreateAnswer(const std::vector<std::string> wordsList, std::ofstream &output)
+{
+    std::string firstWord, lastWord;
+    char lastChar;
+
+    if (wordsList.empty())
     {
-        if (line[-1] == '?')
+        output << "Спасибо за информацию";
+    }
+    else
+    {
+        firstWord = wordsList.front();
+        lastWord = wordsList.back();
+        lastChar = lastWord[lastWord.size() - 1];
+        if (firstWord == lastWord)
         {
-            output << "Конь в пальто!" << std::endl;
-        } else
+            output << "Конь в пальто!";
+        }
+        else
         {
-            output << "Спасибо за информацию" << std::endl;
+            if (firstWord == "Кто" && lastChar == '?')
+            {
+                output << "Конь в пальто ";
+                for (std::vector<int>::size_type i = 1; i < wordsList.size() - 1; i++)
+                {
+                    output << wordsList.at(i) << ' ';
+                }
+                for (int i = 0; i < lastWord.size() - 1; i++)
+                {
+                    output << lastWord[i];
+                }
+                output << '!';
+            }
+            else
+            {
+                output << "Спасибо за информацию";
+            }
         }
     }
 }
 
 int CopyFileWithReplacement(std::string &inputFileName, std::string &outputFileName)
 {
+    std::vector<std::string> wordsList;
+
     std::ifstream inputFile;
     inputFile.open(inputFileName);
 
@@ -78,7 +116,8 @@ int CopyFileWithReplacement(std::string &inputFileName, std::string &outputFileN
         return EXIT_FAILURE;
     }
 
-    CopyStringWithReplacement(inputFile, outputFile);
+    wordsList = GetLastString(inputFile);
+    CreateAnswer(wordsList, outputFile);
 
     return EXIT_SUCCESS;
 }
