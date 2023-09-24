@@ -129,8 +129,10 @@ int main(int argc, char *argv[])
     {
         return EXIT_FAILURE;
     }
-
-    CopyFileWithReplacement(args->inputFileName, args->outputFileName);
+    if (!CopyFileWithReplacement(args->inputFileName, args->outputFileName))
+    {
+        return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }
