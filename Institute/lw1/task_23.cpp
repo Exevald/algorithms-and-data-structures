@@ -1,7 +1,6 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <optional>
-#include <string>
 #include <vector>
 
 struct Args
@@ -33,8 +32,7 @@ std::vector<std::string> GetLastString(std::ifstream& input)
 	while (input >> word)
 	{
 		wordsList.push_back(word);
-		if (word[word.size() - 1] == '.' || word[word.size() - 1] == '!' ||
-			(word[word.size() - 1] == '?' && !input.eof()))
+		if (word[word.size() - 1] == '.' || word[word.size() - 1] == '!' || (word[word.size() - 1] == '?' && !input.eof()))
 		{
 			wordsList.clear();
 		}
@@ -83,7 +81,7 @@ void CreateAnswer(const std::vector<std::string>& wordsList, std::ofstream& outp
 	}
 }
 
-int CopyFileWithReplacement(std::string& inputFileName, std::string& outputFileName)
+int CopyFileWithReplacement(const std::string& inputFileName, const std::string& outputFileName)
 {
 	std::vector<std::string> wordsList;
 
