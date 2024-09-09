@@ -15,7 +15,7 @@ writeTestError() {
 
 # TEST 1: Invalid argument count
 ./task_28.exe
-if $? -eq 1
+if [ $? -eq 1 ]
 then
   writeTestSuccess
 else
@@ -24,7 +24,7 @@ fi
 
 # TEST 2: Invalid filename
 ./task_28.exe ./tests/invalidFileName.txt ./tests/invalidFileName.txt
-if $? -eq 1
+if [ $? -eq 1 ]
 then
   rm ./tests/invalidFileName.txt
   writeTestSuccess
@@ -35,7 +35,7 @@ fi
 
 # TEST 3: Invalid search word size
 ./task_28.exe ./tests/invalidSearchWordSize.txt ./tests/output.txt
-if $? -eq 1
+if [ $? -eq 1 ]
 then
   writeTestSuccess
 else
@@ -44,7 +44,7 @@ fi
 
 # TEST 4: Invalid dictionary size
 ./task_28.exe ./tests/invalidDictionarySize.txt ./tests/output.txt
-if $? -eq 1
+if [ $? -eq 1 ]
 then
   writeTestSuccess
 else
@@ -53,7 +53,7 @@ fi
 
 # TEST 5: List words from dictionary
 ./task_28.exe ./tests/input.txt ./tests/output.txt
-if $?
+if [ $? ]
 then
   if diff -q ./tests/output.txt ./tests/validOutputFile.txt
   then
