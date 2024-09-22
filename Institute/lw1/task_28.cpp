@@ -58,28 +58,12 @@ void AssertWordIsValid(const std::string& word)
 	}
 }
 
-std::unordered_map<char, int> CountLettersInWord(const std::string& word)
+bool IsWordsSimilar(const std::string& dictWord, const std::string& searchWord)
 {
-	std::unordered_map<char, int> letterInfo;
-	AssertWordIsValid(word);
-	for (char c : word)
+	for (char c = 'a'; c <= 'z'; ++c)
 	{
-		letterInfo[c]++;
-	}
-	return letterInfo;
-}
-
-bool IsWordsSimilar(const std::string& baseWord, const std::string& searchWord)
-{
-	std::unordered_map<char, int> baseWordLettersCountMap = CountLettersInWord(baseWord);
-	std::unordered_map<char, int> searchWordLettersCountMap = CountLettersInWord(searchWord);
-
-	for (const auto& [letter, count] : baseWordLettersCountMap)
-	{
-		if (baseWordLettersCountMap.find(letter) == searchWordLettersCountMap.end() || searchWordLettersCountMap[letter] < count)
-		{
+		if (std::count(dictWord.begin(), dictWord.end(), c) > std::count(searchWord.begin(), searchWord.end(), c))
 			return false;
-		}
 	}
 	return true;
 }
@@ -112,14 +96,41 @@ void FillDictionary(std::vector<std::string>& dictionary, std::ifstream& inputFi
 	}
 }
 
+void TransformToLowerCase(std::string& word)
+{
+	std::transform(word.begin(), word.end(), word.begin(), [](unsigned char ch) {
+		return std::tolower(ch);
+	});
+}
+
+std::vector<std::string> SortDictionary(const std::vector<std::string>& dictionary)
+{
+	std::vector<std::string> sortedDictionary;
+	for (const std::string& dictItem : dictionary)
+	{
+		AssertWordIsValid(dictItem);
+		std::string sortedDictItem = dictItem;
+		std::sort(sortedDictItem.begin(), sortedDictItem.end());
+		sortedDictionary.push_back(sortedDictItem);
+	}
+	return sortedDictionary;
+}
+
 std::vector<std::string> GetSimilarWordsFromDictionary(const std::vector<std::string>& dictionary, const std::string& searchWord)
 {
 	std::vector<std::string> similarWords;
-	for (const std::string& dictItem : dictionary)
+	std::string sortedSearchWord = searchWord;
+	std::sort(sortedSearchWord.begin(), sortedSearchWord.end());
+	TransformToLowerCase(sortedSearchWord);
+	std::vector sortedDictionary = SortDictionary(dictionary);
+
+	for (size_t i = 0; i < sortedDictionary.size(); ++i)
 	{
-		if (IsWordsSimilar(dictItem, searchWord))
+		std::string lowerDictWord = sortedDictionary[i];
+		TransformToLowerCase(lowerDictWord);
+		if (IsWordsSimilar(lowerDictWord, sortedSearchWord))
 		{
-			similarWords.push_back(dictItem);
+			similarWords.emplace_back(dictionary[i]);
 		}
 	}
 	SortSimilarWordsByWordLength(similarWords);
