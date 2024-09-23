@@ -102,19 +102,6 @@ void TransformToLowerCase(std::string& word)
 	});
 }
 
-std::vector<std::string> SortDictionary(const std::vector<std::string>& dictionary)
-{
-	std::vector<std::string> sortedDictionary;
-	for (const std::string& dictItem : dictionary)
-	{
-		AssertWordIsValid(dictItem);
-		std::string sortedDictItem = dictItem;
-		std::sort(sortedDictItem.begin(), sortedDictItem.end());
-		sortedDictionary.push_back(sortedDictItem);
-	}
-	return sortedDictionary;
-}
-
 std::vector<std::string> GetSimilarWordsFromDictionary(const std::vector<std::string>& dictionary, const std::string& searchWord)
 {
 	std::vector<std::string> similarWords;
