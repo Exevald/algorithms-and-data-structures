@@ -118,18 +118,17 @@ std::vector<std::string> SortDictionary(const std::vector<std::string>& dictiona
 std::vector<std::string> GetSimilarWordsFromDictionary(const std::vector<std::string>& dictionary, const std::string& searchWord)
 {
 	std::vector<std::string> similarWords;
-	std::string sortedSearchWord = searchWord;
-	std::sort(sortedSearchWord.begin(), sortedSearchWord.end());
-	TransformToLowerCase(sortedSearchWord);
-	std::vector sortedDictionary = SortDictionary(dictionary);
+	std::string lowerSearchWord = searchWord;
+	TransformToLowerCase(lowerSearchWord);
 
-	for (size_t i = 0; i < sortedDictionary.size(); ++i)
+	for (const auto & dictItem : dictionary)
 	{
-		std::string lowerDictWord = sortedDictionary[i];
+		AssertWordIsValid(dictItem);
+		std::string lowerDictWord = dictItem;
 		TransformToLowerCase(lowerDictWord);
-		if (IsWordsSimilar(lowerDictWord, sortedSearchWord))
+		if (IsWordsSimilar(lowerDictWord, lowerSearchWord))
 		{
-			similarWords.emplace_back(dictionary[i]);
+			similarWords.emplace_back(dictItem);
 		}
 	}
 	SortSimilarWordsByWordLength(similarWords);
