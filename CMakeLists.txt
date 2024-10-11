@@ -7,5 +7,8 @@ add_executable(
         algorithms_and_data_structures
         Institute/lw1/task_23.cpp
         Institute/lw1/task_28.cpp
+
+        Institute/lw2/CQueue.cpp
+        Institute/lw2/CStack.cpp
         Institute/lw2/task_18.cpp
 )
