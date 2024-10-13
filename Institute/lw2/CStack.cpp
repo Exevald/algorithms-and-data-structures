@@ -28,6 +28,10 @@ void CStack::Push(const std::string& name)
 {
 	auto queue = std::make_unique<CQueue>(name);
 	auto stackNode = std::make_unique<SStackNode>(std::move(queue));
+	if (m_head != nullptr)
+	{
+		stackNode->next = std::move(m_head);
+	}
 	m_head = std::move(stackNode);
 }
 
@@ -35,6 +39,7 @@ void CStack::Pop()
 {
 	if (!IsEmpty())
 	{
+		m_head->value->ClearQueue();
 		m_head = std::move(m_head->next);
 	}
 	else
@@ -45,11 +50,12 @@ void CStack::Pop()
 
 void CStack::Print()
 {
-	std::cout << "Stack contents:" << std::endl;
 	SStackNode* currentNode = m_head.get();
 	while (currentNode)
 	{
-		std::cout << "Queue: " << currentNode->value->GetName() << std::endl;
+		std::cout << "Queue: " << currentNode->value->GetName() << "{ ";
+		currentNode->value->Print();
+		std::cout << "}" << std::endl;
 		currentNode = currentNode->next.get();
 	}
 }

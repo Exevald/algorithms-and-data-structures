@@ -1,4 +1,5 @@
 #include "CQueue.h"
+#include <iostream>
 
 CQueue::CQueue(const std::string& name)
 {
@@ -38,9 +39,35 @@ void CQueue::Add(int value)
 }
 void CQueue::DeleteHead()
 {
-	m_head = std::move(m_head->next);
-	if (IsEmpty())
+	if (!IsEmpty())
 	{
-		m_tail = nullptr;
+		m_head = std::move(m_head->next);
+		if (IsEmpty())
+		{
+			m_tail = nullptr;
+		}
+	}
+	else
+	{
+		throw std::logic_error("Cannot delete top element from queue, because queue is empty");
+	}
+}
+
+void CQueue::Print()
+{
+	SQueueNode* currentNode = m_head.get();
+	while (currentNode)
+	{
+		std::cout << currentNode->value << " ";
+		currentNode = currentNode->next.get();
+	}
+}
+
+void CQueue::ClearQueue()
+{
+	while (m_head)
+	{
+		auto nextNode = std::move(m_head->next);
+		m_head = std::move(nextNode);
 	}
 }

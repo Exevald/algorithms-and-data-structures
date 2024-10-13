@@ -25,6 +25,8 @@ public:
 
 	void Add(QUEUE_TYPE value);
 	void DeleteHead();
+	void Print();
+	void ClearQueue();
 
 private:
 	std::string m_name;

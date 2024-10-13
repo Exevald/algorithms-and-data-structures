@@ -23,7 +23,8 @@ void QueueController(CQueue& queue)
 				  << "1. Add to queue: Press 'add'" << std::endl
 				  << "2. Delete head from queue: Press 'delete'" << std::endl
 				  << "3. Get head from queue: Press 'top'" << std::endl
-				  << "4. Exit from queue: Press 'exit'" << std::endl
+				  << "4. Print all queue items: Press 'print'" << std::endl
+				  << "5. Exit from queue: Press 'exit'" << std::endl
 				  << "> ";
 		std::cin >> action;
 
@@ -58,6 +59,12 @@ void QueueController(CQueue& queue)
 			{
 				std::cout << e.what() << std::endl;
 			}
+		}
+		else if (action == "print")
+		{
+			std::cout << "Queue contents: ";
+			queue.Print();
+			std::cout << std::endl;
 		}
 		else
 		{
@@ -115,7 +122,9 @@ void StackController(CStack& stack)
 		}
 		else if (action == "print")
 		{
+			std::cout << "Stack contents: " << std::endl;
 			stack.Print();
+			std::cout << std::endl;
 		}
 		else
 		{
