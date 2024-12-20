@@ -153,12 +153,24 @@ void CalculateMasses(const std::shared_ptr<Node>& node)
 
 void PruneTree(const std::shared_ptr<Node>& node, int remainingMass)
 {
-	if (!node || node->type == NodeType::LEAF)
+	if (!node)
 	{
 		return;
 	}
 
+	if (node->type == NodeType::LEAF)
+	{
+		if (node->weight > remainingMass)
+		{
+			node->minMass = 0;
+			node->maxMass = 0;
+		}
+		return;
+	}
+
 	std::vector<std::shared_ptr<Node>> newChildren;
+	size_t originalChildCount = node->children.size();
+
 	for (const auto& child : node->children)
 	{
 		if (child->minMass <= remainingMass)
@@ -167,7 +179,8 @@ void PruneTree(const std::shared_ptr<Node>& node, int remainingMass)
 				? remainingMass - (node->minMass - child->minMass)
 				: remainingMass;
 			PruneTree(child, childRemainingMass);
-			if (!child->children.empty() || child->type == NodeType::LEAF)
+
+			if (!child->children.empty() || (child->type == NodeType::LEAF && child->weight <= remainingMass))
 			{
 				newChildren.push_back(child);
 			}
@@ -176,6 +189,11 @@ void PruneTree(const std::shared_ptr<Node>& node, int remainingMass)
 
 	node->children = std::move(newChildren);
 
+	if (node->type == NodeType::AND && node->children.size() != originalChildCount)
+	{
+		node->children.clear();
+	}
+
 	if (node->children.empty() && node->type != NodeType::LEAF)
 	{
 		node->minMass = 0;
@@ -183,10 +201,9 @@ void PruneTree(const std::shared_ptr<Node>& node, int remainingMass)
 	}
 }
 
-
 void PrintTree(const std::shared_ptr<Node>& node, std::ofstream& file, int level = 0)
 {
-	if (!node)
+	if (!node || (node->children.empty() && node->type != NodeType::LEAF))
 	{
 		return;
 	}
