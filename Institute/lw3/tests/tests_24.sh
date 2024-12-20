@@ -56,4 +56,20 @@ then
 else
   writeTestError
 fi
+
+# TEST 5: Trim and print valid tree with low mass
+./task_24.exe ./tests/inputWithLowMass.txt ./tests/output.txt
+if [ $? ]
+then
+  writeTestSuccess
+  if diff -q ./tests/output.txt ./tests/validOutputFileWithEmptyTree.txt
+  then
+    writeTestSuccess
+  else
+    writeTestError
+  fi
+else
+  writeTestError
+fi
+
 echo -e "${GREEN}All tests passed${NC}"
