@@ -24,7 +24,7 @@ int ArithmExpr(string inf)
 
 	if (!inputFile.is_open())
 	{
-		puts("Не удалось открыть файл для чтения");
+		puts("пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
 		return 1;
 	}
 	while (inputFile.get(ch))
@@ -81,7 +81,7 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 
-	ArithmExpr("input.txt");
+	ArithmExpr("physicalEffectsInput.txt");
 
 	return 0;
 }

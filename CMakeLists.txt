@@ -10,7 +10,11 @@ add_executable(
 
         Institute/lw2/CQueue.cpp
         Institute/lw2/CStack.cpp
+
         Institute/lw2/task_18.cpp
         Institute/lw3/task_24.cpp
         Institute/lw3/task_24.cpp
+
+        Institute/lw4/task_25.cpp
+        Institute/lw4/CGraph.cpp
 )

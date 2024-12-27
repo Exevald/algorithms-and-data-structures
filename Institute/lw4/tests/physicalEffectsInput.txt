@@ -1,0 +1,8 @@
+Effect1;1;3
+Effect2;3;2
+Effect3;3;4
+Effect4;4;1
+Effect5;2;1
+Effect6;1;3
+Effect7;1;2
+Effect8;2;1
