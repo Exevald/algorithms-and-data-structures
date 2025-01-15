@@ -17,4 +17,7 @@ add_executable(
 
         Institute/lw4/task_25.cpp
         Institute/lw4/CGraph.cpp
+
+        Institute/lw5/task_21.cpp
+        Institute/lw5/CMatrixManager.cpp
 )
