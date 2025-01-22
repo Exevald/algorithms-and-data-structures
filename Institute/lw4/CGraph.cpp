@@ -18,7 +18,8 @@ std::vector<std::vector<int>> CGraph::FindEffectsChains(int start, int target, i
 	return chains;
 }
 
-void CGraph::DFS(int current, int target, int maxDepth, std::vector<std::vector<int>>& chains, std::set<std::string>& visitedChains)
+void CGraph::DFS(int current, int target, int maxDepth, std::vector<std::vector<int>>& chains,
+	std::set<std::string>& visitedChains)
 {
 	std::stack<std::tuple<int, int, std::vector<int>>> stack;
 	stack.push({ current, 0, { current } });
@@ -80,22 +81,18 @@ void CGraph::PrintEffectsChainsToFile(const std::vector<std::vector<int>>& chain
 		}
 		outputFile << std::endl;
 
-		outputFile << "Effects: " << std::endl;
 		for (size_t i = 0; i < chain.size() - 1; ++i)
 		{
 			int current = chain[i];
 			int next = chain[i + 1];
+
+			outputFile << current << "->" << next << ":" << std::endl;
+
 			for (const auto& effect : m_adjList[current])
 			{
 				if (effect.output == next)
 				{
-					outputFile << effect.name;
-					if (i < chain.size() - 2)
-					{
-						outputFile << " -> ";
-					} else {
-						outputFile << std::endl;
-					}
+					outputFile << effect.name << std::endl;
 				}
 			}
 		}

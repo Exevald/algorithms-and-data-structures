@@ -1,21 +1,40 @@
 Chain: 2 -> 1
-Effects: 
+2->1:
 Effect5
 Effect8
 
 Chain: 2 -> 1 -> 2 -> 1
-Effects: 
-Effect5 -> Effect8 -> Effect7 -> Effect5
+2->1:
+Effect5
+Effect8
+1->2:
+Effect7
+2->1:
+Effect5
 Effect8
 
 Chain: 2 -> 1 -> 3 -> 4 -> 1
-Effects: 
-Effect5 -> Effect8 -> Effect6 -> Effect3 -> Effect4
-Effect5 -> Effect8 -> Effect1 -> Effect3 -> Effect4
-
+2->1:
+Effect5
+Effect8
+1->3:
+Effect1
+Effect6
+3->4:
+Effect3
+4->1:
+Effect4
 
 Chain: 2 -> 1 -> 3 -> 2 -> 1
-Effects: 
-Effect5 -> Effect8 -> Effect1 -> Effect6 -> Effect2 -> Effect5
-Effect8Effect8
+2->1:
+Effect5
+Effect8
+1->3:
+Effect1
+Effect6
+3->2:
+Effect2
+2->1:
+Effect5
+Effect8
 
